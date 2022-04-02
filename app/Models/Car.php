@@ -15,6 +15,7 @@ class Car extends Model
         'power',
         'regnr',
         'about',
-        'client_id'
+        'client_id',
+        'verified'
     ];
 }

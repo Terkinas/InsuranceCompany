@@ -14,7 +14,7 @@
 
 
 
-      <form action="/forma/automobilis" method="post">
+      <form action="/forma/automobilis" method="post" id="automobile-form">
       @csrf
         <div class="shadow sm:rounded-md sm:overflow-hidden">
           <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
@@ -22,10 +22,19 @@
               <div class="col-span-3 sm:col-span-2">
               
                 <label for="Brand" class="block text-sm font-medium text-gray-700"> Markė </label>
-                <div class="mt-1 flex rounded-md shadow-sm">
-                {{--  --}}
-                  <input type="text" name="brand" id="brand" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" placeholder="Mercedes-Benz">
-                </div>
+                <div class="inline-block relative w-64">
+  <select form="automobile-form" name="brand" class="px-2 block appearance-none w-54 bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+    <option value="audi">Audi</option>
+    <option value="bmw">BMW</option>
+    <option value="ford">Ford</option>
+    <option value="mercedes">Mercedes</option>
+    <option value="opel">Opel</option>
+    <option value="volkswagen">Volkswagen</option>
+  </select>
+  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+    
+  </div>
+</div>
               </div>
 
 
@@ -34,7 +43,7 @@
                 <label for="Year" class="block text-sm font-medium text-gray-700"> Pagaminimo metai </label>
                 <div class="mt-1 flex rounded-md shadow-sm">
                 {{--  --}}
-                  <input type="number" name="year" id="year" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" placeholder="1998">
+                  <input value="{{old("year")}}" type="number" name="year" id="year" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" placeholder="1998">
                 </div>
               </div>
             </div>

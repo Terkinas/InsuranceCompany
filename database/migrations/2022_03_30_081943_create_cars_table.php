@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('RegNr', 255);
             $table->string('About', 255);
             $table->unsignedInteger('client_id');
+            $table->boolean('verified');
             $table->timestamps();
 
             $table->foreign('client_id')->references('id')->on('clients');

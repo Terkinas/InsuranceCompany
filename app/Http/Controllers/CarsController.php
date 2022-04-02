@@ -19,7 +19,8 @@ class CarsController extends Controller
             'power' => 'required|max:255',
             'regnr' => 'required|max:255',
             'about' => 'required|max:255',
-            'client_id'
+            'client_id',
+            'verified'
         ]);
 
     
@@ -30,7 +31,8 @@ class CarsController extends Controller
             'power' => request('power'),
             'regnr' => request('regnr'),
             'about' => request('about'),
-            'client_id' => Clients::select('id')->where('user_id', auth()->id())->first()->id
+            'client_id' => Clients::select('id')->where('user_id', auth()->id())->first()->id,
+            'verified' => false
         ]);
 
         return redirect('/dashboard');
