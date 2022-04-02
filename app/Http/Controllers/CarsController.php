@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\Clients;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use League\CommonMark\Extension\Attributes\Node\Attributes;
@@ -21,13 +22,15 @@ class CarsController extends Controller
             'client_id'
         ]);
 
+    
+
         Car::create([
             'brand' => request('brand'),
             'year' => request('year'),
             'power' => request('power'),
             'regnr' => request('regnr'),
             'about' => request('about'),
-            'client_id' => Clients::where('user_id', auth()->id())->get()
+            'client_id' => Clients::select('id')->where('user_id', auth()->id())->first()->id
         ]);
 
         return redirect('/dashboard');
