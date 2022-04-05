@@ -32,67 +32,127 @@
     </head>
     {{-- controllerius, modlius etc. --}}
     <body class="antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
 
-            <div class="py-12">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg
-                    flex items-center">
-                        
-                        <div class="m-auto">
-                            
+    @livewire('navigation-menu')
 
 
-                            {{-- <x-draudimos-forma-a /> --}}
-                            {{-- @if($type) 
-                                {{$type}}
-                                <div>its worknig</div>
-                            @else
-                                <div>da</div>
-                            @endif --}}
-                        
-                            @if (!isset($type)) 
-                                <div class="py-24 h-96 flex-col justify-self-center" >
-                                <h4 class="text-2xl">Pasirinkite kategoriją, ką norėtumėte apdrausti:</h4> <br />
+        <div>
+    <!-- Because you are alive, everything is possible. - Thich Nhat Hanh -->
+    <div>
+  <div class="md:grid md:grid-cols-3 md:gap-6">
+    <div class="md:col-span-1">
+      <div class="px-2 py-6 sm:px-0">
+        <h3 class="text-lg font-medium leading-6 text-gray-900">Automobilio draudimo formos koregavimas</h3>
+        <p class="mt-1 text-sm text-gray-600">Pateikite visą reikiamą informacija apie automobilį.</p>
+      </div>
+    </div>
+    <div class="mt-5 md:mt-0 md:col-span-2">
 
-                                <form action="/turtodrauda/forma" method="get" class=" align-center flex-col h-24">
-                                    <input class="my-2" type="radio" name="kategorija" value="automobilis" checked> Automobilis </input> <br />
-                                    <input class="my-3" type="radio" name="kategorija" value="bustas"> Nekilnojamasis turtas </input>
-                                    
-                                    <button>
-                                    <br />
-                                        <a>
-                                            <div class="mt-3 flex items-center text-sm font-semibold text-indigo-700">
-                                                    <div>Pradėti pildymą</div>
 
-                                                    <div class="ml-1 text-indigo-500">
-                                                        <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                                    </div>
-                                            </div>
-                                        </a>
-                                    </button>
-                                </form>
-                                </div>
-                            @elseif ($type == "automobilis")
-                                <x-draudimos-forma-a />
-                            @elseif ($type == "bustas")
-                                <x-draudimos-forma-n />
-                            @endif
-                            
-                            @if($checkIfVerified->isEmpty())
-                                <x-verify-users-info />
-                            @else
-                                
-                            @endif
-                            
 
-                        </div>
 
-                    </div>
+      <form action="/forma/automobilis/edit/{{$car->id}}" method="post" id="automobile-form">
+      @csrf
+        <div class="shadow sm:rounded-md sm:overflow-hidden">
+          <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+            <div class="grid grid-cols-3 gap-6">
+              <div class="col-span-3 sm:col-span-2">
+              
+                <label for="Brand" class="block text-sm font-medium text-gray-700"> Markė </label>
+                <div class="inline-block relative w-64">
+  <select form="automobile-form" name="brand" class="px-2 block appearance-none w-54 bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+    <option value="audi">Audi</option>
+    <option value="bmw">BMW</option>
+    <option value="ford">Ford</option>
+    <option value="mercedes">Mercedes</option>
+    <option value="opel">Opel</option>
+    <option value="volkswagen">Volkswagen</option>
+  </select>
+  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+    
+  </div>
+</div>
+              </div>
+
+
+
+              <div class="col-span-3 sm:col-span-2">
+                <label for="Year" class="block text-sm font-medium text-gray-700"> Pagaminimo metai </label>
+                <div class="mt-1 flex rounded-md shadow-sm">
+                {{--  --}}
+                  <input value="{{ $car->Year }}" type="number" name="year" id="year" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" placeholder="1998">
                 </div>
+              </div>
             </div>
+
+            
+
+            <div class="col-span-3 sm:col-span-2">
+                <label for="Power" class="block text-sm font-medium text-gray-700"> Galia (kW) </label>
+                <div class="mt-1 flex rounded-md shadow-sm">
+                {{--  --}}
+                  <input value="{{ $car->Power }}" required type="number" name="power" id="power" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" placeholder="177">
+                </div>
+              </div>
+         
+
+            <div class="col-span-3 sm:col-span-2">
+                <label for="RegNum" class="block text-sm font-medium text-gray-700"> Registracijos numeris </label>
+                <div class="mt-1 flex rounded-md shadow-sm">
+                {{--  --}}
+                  <input value="{{ $car->RegNr }}" required type="text" name="regnr" id="regnr" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" placeholder="LKI777">
+                </div>
+              </div>
+            
+
+             
+
+
+
+
+
+
+
+
+            <div>
+              <label for="about" class="block text-sm font-medium text-gray-700"> Jūsų komentaras (nebūtina) </label>
+              <div class="mt-1">
+              {{--  --}}
+                <textarea id="about" name="about" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="...">{{ $car->About }}</textarea>
+              </div>
+              <p class="mt-2 text-sm text-gray-500">Trumpas aprašymas apie automobilį.</p>
+            </div>
+
+           
+     
+
+          
+          </div>
+          <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Pakeisti</button>
+          </div>
         </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+@if ($errors->any())
+<ul>
+  @foreach ($errors->all() as $error)
+    <li>{{ $error }}</li>
+  @endforeach
+  </ul>
+@endif
+
+</div>
+
+
+
+
+
+
+
 
     </body>
 </html>

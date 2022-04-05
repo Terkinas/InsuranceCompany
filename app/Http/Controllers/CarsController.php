@@ -18,7 +18,7 @@ class CarsController extends Controller
             'year' => 'required|max:255',
             'power' => 'required|max:255',
             'regnr' => 'required|max:255',
-            'about' => 'required|max:255',
+            'about' => 'max:255',
             'client_id',
             'verified'
         ]);
@@ -36,5 +36,84 @@ class CarsController extends Controller
         ]);
 
         return redirect('/dashboard');
+    }
+
+
+    public function editForm($id) {
+        $carsArray =Car::where('client_id', Clients::where('user_id', auth()->id())->first()->id)->pluck('id');
+
+        foreach ($carsArray as $item) {
+            if($item == $id) {
+                $car = Car::where('id', $id)->first();
+                return view('pages.editAutomobilis', compact('car'));
+            }
+            else {
+                $car = null;
+            }
+        }
+
+
+        if(Car::where('client_id', Clients::where('user_id', auth()->id())->first()->id)->pluck('id') == $id) {
+        }
+        else {
+            dd ("does not belong to you");
+            redirect("/");
+        }
+
+        // return view('pages.editAutomobilis');
+    }
+
+    public function update(Request $request, $id) {
+        $validated = $request-> validate([
+            'brand' => 'required|max:255',
+            'year' => 'required|max:255',
+            'power' => 'required|max:255',
+            'regnr' => 'required|max:255',
+            'about' => 'max:255',
+            'client_id',
+            'verified'
+        ]);
+
+        $car = Car::where('id', $id)->firstOrFail();
+        $car->brand = request('brand');
+        $car->year = request('year');
+        $car->power = request('power');
+        $car->regnr = request('regnr');
+        $car->about = request('about');
+
+        $car->save();
+
+        return redirect('/profilis')->with('success');
+    }
+
+
+    public function deleteConfirmation($id) {
+        $carsArray =Car::where('client_id', Clients::where('user_id', auth()->id())->first()->id)->pluck('id');
+
+        foreach ($carsArray as $item) {
+            if($item == $id) {
+                $car = Car::where('id', $id)->first();
+
+                return view('pages.deleteAutomobilis', compact('car'));
+            }
+            else {
+                $car = null;
+            }
+        }
+    }
+
+    public function destroy($id) {
+        $carsArray =Car::where('client_id', Clients::where('user_id', auth()->id())->first()->id)->pluck('id');
+        foreach ($carsArray as $item) {
+            if($item == $id) {
+                $car = Car::find($id);
+                $car->delete();
+
+                return redirect("/profilis")->with('success');
+            }
+            else {
+                $car = null;
+            }
+        }
     }
 }

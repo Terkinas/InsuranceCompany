@@ -1,3 +1,5 @@
+
+
 <div>
     <!-- Because you are alive, everything is possible. - Thich Nhat Hanh -->
     <div>
@@ -9,7 +11,12 @@
       </div>
     </div>
     <div class="mt-5 md:mt-0 md:col-span-2">
-      <form action="#" method="POST">
+
+
+
+
+      <form action='/forma/bustas' method="post">
+        @csrf
         <div class="shadow sm:rounded-md sm:overflow-hidden">
           <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
             <div class="grid grid-cols-3 gap-6">
@@ -52,7 +59,7 @@
                   <div class="flex text-sm text-gray-600">
                     <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                       <span>Upload a file</span>
-                      <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                      {{-- <input id="file-upload" name="file-upload" type="file" class="sr-only"> --}}
                     </label>
                     <p class="pl-1">or drag and drop</p>
                   </div>

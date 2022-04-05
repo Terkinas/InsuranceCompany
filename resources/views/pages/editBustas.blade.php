@@ -32,67 +32,72 @@
     </head>
     {{-- controllerius, modlius etc. --}}
     <body class="antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
 
-            <div class="py-12">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg
-                    flex items-center">
-                        
-                        <div class="m-auto">
-                            
+    @livewire('navigation-menu')
+
+    
+
+<div>
+    <!-- Because you are alive, everything is possible. - Thich Nhat Hanh -->
+    <div>
+  <div class="md:grid md:grid-cols-3 md:gap-6">
+    <div class="md:col-span-1">
+      <div class="px-2 py-6 sm:px-0">
+        <h3 class="text-lg font-medium leading-6 text-gray-900">Nekilnojamo turto draudimo forma</h3>
+        <p class="mt-1 text-sm text-gray-600">Pateikite visą reikiamą informacija apie būstą.</p>
+      </div>
+    </div>
+    <div class="mt-5 md:mt-0 md:col-span-2">
 
 
-                            {{-- <x-draudimos-forma-a /> --}}
-                            {{-- @if($type) 
-                                {{$type}}
-                                <div>its worknig</div>
-                            @else
-                                <div>da</div>
-                            @endif --}}
-                        
-                            @if (!isset($type)) 
-                                <div class="py-24 h-96 flex-col justify-self-center" >
-                                <h4 class="text-2xl">Pasirinkite kategoriją, ką norėtumėte apdrausti:</h4> <br />
 
-                                <form action="/turtodrauda/forma" method="get" class=" align-center flex-col h-24">
-                                    <input class="my-2" type="radio" name="kategorija" value="automobilis" checked> Automobilis </input> <br />
-                                    <input class="my-3" type="radio" name="kategorija" value="bustas"> Nekilnojamasis turtas </input>
-                                    
-                                    <button>
-                                    <br />
-                                        <a>
-                                            <div class="mt-3 flex items-center text-sm font-semibold text-indigo-700">
-                                                    <div>Pradėti pildymą</div>
 
-                                                    <div class="ml-1 text-indigo-500">
-                                                        <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                                    </div>
-                                            </div>
-                                        </a>
-                                    </button>
-                                </form>
-                                </div>
-                            @elseif ($type == "automobilis")
-                                <x-draudimos-forma-a />
-                            @elseif ($type == "bustas")
-                                <x-draudimos-forma-n />
-                            @endif
-                            
-                            @if($checkIfVerified->isEmpty())
-                                <x-verify-users-info />
-                            @else
-                                
-                            @endif
-                            
-
-                        </div>
-
-                    </div>
+      <form action='/forma/bustas/edit/{{$house->id}}' method="post">
+        @csrf
+        <div class="shadow sm:rounded-md sm:overflow-hidden">
+          <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+            <div class="grid grid-cols-3 gap-6">
+              <div class="col-span-3 sm:col-span-2">
+                <label for="squares" class="block text-sm font-medium text-gray-700"> Kvadratūra (kv2) </label>
+                <div class="mt-1 flex rounded-md shadow-sm">
+                  <input value="{{$house->squares}}" type="text" name="squares" id="squares" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" placeholder="52">
                 </div>
+              </div>
+
+
+
+              <div class="col-span-3 sm:col-span-2">
+                <label for="address" class="block text-sm font-medium text-gray-700"> Būsto adresas </label>
+                <div class="mt-1 flex rounded-md shadow-sm">
+                  <input value="{{$house->address}}" type="text" name="address" id="address" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" placeholder="Ginkūnu g. 7">
+                </div>
+              </div>
             </div>
+
+
+            <div>
+              <label for="about" class="block text-sm font-medium text-gray-700"> Jūsų komentaras (nebūtina) </label>
+              <div class="mt-1">
+                <textarea id="about" name="about" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="...">{{$house->about}}</textarea>
+              </div>
+              <p class="mt-2 text-sm text-gray-500">Trumpas aprašymas apie bustą.</p>
+            </div>
+
+           
+     
+
+          <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Pakeisti</button>
+          </div>
         </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
 
     </body>
-</html>
+    </html>

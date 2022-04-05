@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CarsController;
+use App\Http\Controllers\HouseController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\turtoDraudimoForma;
 use Illuminate\Support\Facades\Route;
 
@@ -26,9 +28,23 @@ Route::get('/', function () {
 
 Route::post('/turtodrauda/pateikti', [turtoDraudimoForma::class, 'verifyUser']);
 Route::post('/forma/automobilis', [CarsController::class, 'store']);
+Route::get('/forma/automobilis/edit/{id}', [CarsController::class, 'editForm'])->name("edit_auto");
+Route::post('/forma/automobilis/edit/{id}', [CarsController::class, 'update']);
+
+Route::get('/forma/automobilis/delete/{id}', [CarsController::class, 'deleteConfirmation']);
+Route::post('/forma/automobilis/delete/{id}', [CarsController::class, 'destroy']);
+
+Route::post('/forma/bustas', [HouseController::class, 'store']);
+Route::get('/forma/bustas/edit/{id}', [HouseController::class, 'editForm']);
+Route::post('/forma/bustas/edit/{id}', [HouseController::class, 'update']);
+
+Route::get('/forma/bustas/delete/{id}', [HouseController::class, 'deleteConfirmation']);
+Route::post('/forma/bustas/delete/{id}', [HouseController::class, 'destroy']);
 
 Route::get('/turtodrauda', [turtoDraudimoForma::class, 'index'])->name('turtodrauda');
 Route::get('/turtodrauda/forma', [turtoDraudimoForma::class, 'formType']);
+
+Route::get('/profilis', [ProfileController::class, 'index'])->name('profilis');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

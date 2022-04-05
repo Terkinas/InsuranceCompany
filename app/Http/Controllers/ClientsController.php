@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class ClientsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
     public function store(Request $request) {
         $validated = $request -> validate([
             'Identity Number' => 'required|max:42',
