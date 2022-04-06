@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CarsController;
 use App\Http\Controllers\HouseController;
 use App\Http\Controllers\ProfileController;
@@ -45,6 +46,9 @@ Route::get('/turtodrauda', [turtoDraudimoForma::class, 'index'])->name('turtodra
 Route::get('/turtodrauda/forma', [turtoDraudimoForma::class, 'formType']);
 
 Route::get('/profilis', [ProfileController::class, 'index'])->name('profilis');
+
+Route::get('/admin', [AdminController::class, 'index'])->name("adminpanel");
+Route::get('/admin/clients/requests', [AdminController::class, 'clientsReq']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

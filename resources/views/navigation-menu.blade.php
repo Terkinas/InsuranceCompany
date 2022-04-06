@@ -24,6 +24,12 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('about')">
                         {{ __('Pagalba') }}
                     </x-jet-nav-link>
+
+                    @if(auth()->user()->admin) 
+                    <x-jet-nav-link href="{{ route('adminpanel') }}" :active="request()->routeIs('about')">
+                        {{ __('Administruoti') }}
+                    </x-jet-nav-link>
+                    @endif
                 </div>
             </div>
 
