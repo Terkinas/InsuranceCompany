@@ -26,37 +26,31 @@ class AdminController extends Controller
     }
 
     public function clientsReq() {
-        if(Clients::where('user_id', auth()->id())->first()) {
+        if(auth()->user()->admin) {
             $clients = User::all();
 
             
             foreach($clients as $client) {
-                // $cars[$client->id] = Car::where('client_id', Clients::where('user_id', $client->id)->firstOrFail()->id)->get();
-
-                // $houses[$client->id] = House::where('client_id', Clients::where('user_id', $client->id)->firstOrFail()->id)->get();
-                // $cars[$client->id] = Car::where('client_id', $client->id);
-                // $houses[$client->id] = House::where('client_id', $client->id);
-                $cars[$client->id] = Car::all();
-                $houses[$client->id] = House::all();
+                $cars = Car::all();
+                $houses = House::all();
             }
-            // $wealthVerified = Car::where('client_id', Clients::where('user_id', auth()->id())->first()->id)->get();
-            // $housesVerified = House::where('client_id', Clients::where('user_id', auth()->id())->first()->id)->get();
-        }
-        else {
-            $cars = []; 
-            $houses = [];
-        }
-        
-        // foreach($clients as $client) {
-        //     if($client->id == 3) {
-        //         dd($cars[1]);
-        //     }
-        // } 
-
-        // foreach($clients as $client) {
-        //     dd($cars[$client->id]->get()->id);
-        // }
            
         return view('pages.clientsforms', compact('cars', 'houses', 'clients'));
+        } else {
+            return redirect('/');
+        }
     }
+
+    public function req_confirmation($id) {
+        if(auth()->user()->admin) {
+            $car = Car::find($id);
+            $car->delete();
+
+            return redirect('clients_requests');
+        }
+    }
+
+
+
+
 }
