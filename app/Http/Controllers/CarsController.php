@@ -40,11 +40,15 @@ class CarsController extends Controller
 
 
     public function editForm($id) {
+        
         $carsArray =Car::where('client_id', Clients::where('user_id', auth()->id())->first()->id)->pluck('id');
 
         foreach ($carsArray as $item) {
             if($item == $id) {
                 $car = Car::where('id', $id)->first();
+                if($car->verified == true) {
+                    return redirect()->route('profilis');
+                }
                 return view('pages.editAutomobilis', compact('car'));
             }
             else {

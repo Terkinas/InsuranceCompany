@@ -35,19 +35,11 @@
 
     @livewire('navigation-menu')
 
-
-
-    <div class="mx-24 my-2">
-
-
-
-
-    </div>
-
-    @if(count($wealthVerified) > 0)
-    <div class="mt-6 px-24"><h1 class="text-xl py-6">Automobilų draudimo įrašai: </h1></div>
-    @foreach ($wealthVerified as $item)
         
+@if(count($cars) > 0)
+    <div class="mt-6 px-24"><h1 class="text-xl py-6">Automobilų draudimo įrašai: </h1></div>
+    @foreach ($cars as $item)
+        @if(!$item->verified)
         <div class="my-6 md:my-2">
                         <div class="rounded bg-slate-600 max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
                             <div class="flex items-center justify-between flex-wrap">
@@ -74,30 +66,32 @@
                             </div>
                             @if(!$item->verified)
                             <div class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
-                                <a href="/forma/automobilis/edit/{{$item->id}}" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50"> Koreguoti </a>
-                            </div>
-                            @else
-                            <div class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
-                                <a href="/forma/automobilis/pay/{{$item->id}}" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50"> Apmokėti </a>
+                            <form action="/admin/clients/requests/confirm/car/{{$item->id}}" method="post">
+                            @csrf
+                                <button type="submit" class="flex items-center justify-center mx-1 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50"> Patvirtinti </button>
+                            </form>
                             </div>
                             @endif
                             <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
-                                <a href="/forma/automobilis/delete/{{$item->id}}">
-                                    <button type="button" class="-mr-1 flex p-2 rounded-md hover:bg-slate-500 focus:outline-none focus:ring-2 focus:ring-white sm:-mr-2">
+                                <form action="/admin/clients/requests/delete/car/{{$item->id}}" method="post">
+                                @csrf
+                                    <button type="submit" class="-mr-1 flex p-2 rounded-md hover:bg-slate-500 focus:outline-none focus:ring-2 focus:ring-white sm:-mr-2">
+                                    
                                     <span class="sr-only">Dismiss</span>
                                     <!-- Heroicon name: outline/x -->
                                     <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                     </button>
-                                </a>
+                                    </form>
+                              
                             </div>
                             </div>
   </div>
-
+    @endif
     @endforeach
     @else
-    <p class="mx-24 my-12 text-xl text-slate-600">Nerasta įrašų...</p>
+    <p class="mx-56 my-12 text-xl text-slate-600">Nerasta įrašų...</p>
     @endif
 
 
@@ -109,12 +103,10 @@
 
 
 
-
-
-
-    @if(count($housesVerified) > 0)
+@if(count($houses) > 0)
     <div class="mt-6 px-24"><h1 class="text-xl py-6">Būsto draudimo įrašai: </h1></div>
-    @foreach ($housesVerified as $item)
+    @foreach ($houses as $item)
+        @if(!$item->verified)
         <div class="my-6 md:my-2">
                         <div class="rounded bg-slate-600 max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
                             <div class="flex items-center justify-between flex-wrap">
@@ -141,37 +133,31 @@
                                 </p>
                             </div>
                             @if(!$item->verified)
-                            <div class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
-                                <a href="/forma/bustas/edit/{{$item->id}}" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50"> Koreguoti </a>
-                            </div>
-                            @else
-                            <div class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
-                                <a href="/forma/bustas/pay/{{$item->id}}" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50"> Apmokėti </a>
-                            </div>
+                            <form action="/admin/clients/requests/confirm/house/{{$item->id}}" method="post">
+                            @csrf
+                                <button type="submit" class="flex items-center justify-center mx-1 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50"> Patvirtinti </button>
+                            </form>
                             @endif
                             <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
-                                <a href="/forma/bustas/delete/{{$item->id}}">
-                                <button type="button" class="-mr-1 flex p-2 rounded-md hover:bg-slate-500 focus:outline-none focus:ring-2 focus:ring-white sm:-mr-2">
-                                <span class="sr-only">Dismiss</span>
-                                <!-- Heroicon name: outline/x -->
-                                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                                </button>
-                                </a>
+                                <form action="/admin/clients/requests/delete/house/{{$item->id}}" method="post">
+                                @csrf
+                                    <button type="submit" class="-mr-1 flex p-2 rounded-md hover:bg-slate-500 focus:outline-none focus:ring-2 focus:ring-white sm:-mr-2">
+                                    
+                                    <span class="sr-only">Dismiss</span>
+                                    <!-- Heroicon name: outline/x -->
+                                    <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                    </button>
+                                    </form>
                             </div>
                             </div>
   </div>
+    @endif
     @endforeach
     @else
     <p class="mx-56 my-12 text-xl text-slate-600">Nerasta būsto įrašų...</p>
     @endif
-   
-    
-    
-
-
-</div>
 
 
     </body>

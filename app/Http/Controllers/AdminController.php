@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accidents;
 use App\Models\Car;
 use App\Models\Clients;
 use App\Models\House;
@@ -41,16 +42,86 @@ class AdminController extends Controller
         }
     }
 
-    public function req_confirmation($id) {
+    public function req_deletion($item, $id) {
         if(auth()->user()->admin) {
-            $car = Car::find($id);
-            $car->delete();
+            if($item == 'car') {
+                $car = Car::find($id);
+                 $car->delete();
+            } 
+            else if($item == 'house') {
+                $house = House::find($id);
+                 $house->delete();
+            }
+            
 
-            return redirect('clients_requests');
+            return redirect('/admin/clients/requests');
         }
     }
 
+    public function req_confirmation($item, $id) {
+        if(auth()->user()->admin) {
 
+            if($item == 'car') {
+                $post = Car::where('id', $id)->firstOrFail();
+                $post->verified = true;
+                $post->save();
+            }
+            else if($item == 'house') {
+                $post = House::where('id', $id)->firstOrFail();
+                $post->verified = true;
+                $post->save();
+            }
+            return redirect('/admin/clients/requests');
+        }
+    }
 
+    public function indexUsers() {
+        if(auth()->user()->admin) {
+            // $users = User::all();
+            $users = User::orderBy('admin', 'DESC')->get();
+            return view('pages.usersmenu', compact('users'));
+        }
+    }
 
+    public function deleteUser($id) {
+        if(auth()->user()->admin) {
+            $user = User::find($id);
+            if($user->id != 1) {
+                $user->delete();
+            }
+            
+            return view('usersmenu');
+        }
+    }
+
+    public function makeAdmin($id) {
+        if(auth()->user()->admin) {
+            $user = User::find($id);
+            if($user->id != 1) {
+                $user->admin = !$user->admin;
+                $user->save();
+            }
+          
+
+            return redirect()->route('usersmenu');
+        }
+    }
+
+    public function findUser() {
+        if(auth()->user()->admin) {
+            $users = User::where('email', 'LIKE', '%'.$_GET['email'].'%')->get();
+
+            return view('pages.usersmenu', compact('users'));
+        }
+    }
+
+    public function show_accidents() {
+        $accidents = Accidents::get()->pluck('car_id')->toArray();
+    
+        $cars = Car::where('id', $accidents);
+        dd($cars);
+        $houses = [];
+
+        return view('pages.clients_accidents', compact('cars', 'houses'));
+    }
 }
