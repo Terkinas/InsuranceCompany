@@ -39,20 +39,15 @@
 @if(count($cars) > 0)
     <div class="mt-6 px-24"><h1 class="text-xl py-6">Automobilų draudimo įrašai: </h1></div>
     @foreach ($cars as $item)
-        @if(!$item->verified)
+        @if($item->verified)
         <div class="my-6 md:my-2">
                         <div class="rounded bg-slate-600 max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
                             <div class="flex items-center justify-between flex-wrap">
                             <div class="w-0 flex-1 flex items-center">
                                 <span class="flex p-2 rounded-lg ">
                                 <!-- Heroicon name: outline/speakerphone -->
-                                @if(!$item->verified)
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-patch-question" viewBox="0 0 16 16">
-                                <path d="M8.05 9.6c.336 0 .504-.24.554-.627.04-.534.198-.815.847-1.26.673-.475 1.049-1.09 1.049-1.986 0-1.325-.92-2.227-2.262-2.227-1.02 0-1.792.492-2.1 1.29A1.71 1.71 0 0 0 6 5.48c0 .393.203.64.545.64.272 0 .455-.147.564-.51.158-.592.525-.915 1.074-.915.61 0 1.03.446 1.03 1.084 0 .563-.208.885-.822 1.325-.619.433-.926.914-.926 1.64v.111c0 .428.208.745.585.745z"/>
-                                <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
-                                <path d="M7.001 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0z"/>
-                                </svg>
-                                @else
+                                @if($item->verified)
+
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-patch-check" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
                                 <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
@@ -64,11 +59,11 @@
                                 <span class="hidden md:inline"> {{$item->Brand}} {{$item->Year}} - {{$item->Power}}kW ({{$item->RegNr}}) -   "{{$item->About}}" </span>
                                 </p>
                             </div>
-                            @if(!$item->verified)
+                            @if($item->verified)
                             <div class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
-                            <form action="/admin/clients/requests/confirm/car/{{$item->id}}" method="post">
+                            <form action="/{{$item->id}}" method="post">
                             @csrf
-                                <button type="submit" class="flex items-center justify-center mx-1 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50"> Patvirtinti </button>
+                                <button type="submit" class="flex items-center justify-center mx-1 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50"> Išmokėti </button>
                             </form>
                             </div>
                             @endif
@@ -84,8 +79,19 @@
                                     </svg>
                                     </button>
                                     </form>
+
+
+                            
                               
                             </div>
+                            </div>
+                            <div class="md:w-96 py-2 mx-4 text-slate-50 ">
+                                @foreach ($accidentsCars as $accident)
+                                    @if($accident->car_id == $item->id) 
+                                        <p>{{$accident->about}}</p>
+                                    @endif
+                                @endforeach
+                                
                             </div>
   </div>
     @endif
@@ -106,7 +112,7 @@
 @if(count($houses) > 0)
     <div class="mt-6 px-24"><h1 class="text-xl py-6">Būsto draudimo įrašai: </h1></div>
     @foreach ($houses as $item)
-        @if(!$item->verified)
+        @if($item->verified)
         <div class="my-6 md:my-2">
                         <div class="rounded bg-slate-600 max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
                             <div class="flex items-center justify-between flex-wrap">
@@ -114,28 +120,20 @@
                                 <span class="flex p-2 rounded-lg ">
                                 <!-- Heroicon name: outline/speakerphone -->
                                 
-                                @if(!$item->verified)
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-patch-question" viewBox="0 0 16 16">
-                                <path d="M8.05 9.6c.336 0 .504-.24.554-.627.04-.534.198-.815.847-1.26.673-.475 1.049-1.09 1.049-1.986 0-1.325-.92-2.227-2.262-2.227-1.02 0-1.792.492-2.1 1.29A1.71 1.71 0 0 0 6 5.48c0 .393.203.64.545.64.272 0 .455-.147.564-.51.158-.592.525-.915 1.074-.915.61 0 1.03.446 1.03 1.084 0 .563-.208.885-.822 1.325-.619.433-.926.914-.926 1.64v.111c0 .428.208.745.585.745z"/>
-                                <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
-                                <path d="M7.001 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0z"/>
-                                </svg>
-                                @else
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-patch-check" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
                                 <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
                                 </svg>
-                                @endif
                                 </span>
                                 <p class="ml-3 font-medium text-white truncate">
                                 <span class="md:hidden"> {{$item->address}} - ({{$item->squares}}kV)</span>
                                 <span class="hidden md:inline"> {{$item->address}} - ({{$item->squares}}kV) -   "{{$item->about}}" </span>
                                 </p>
                             </div>
-                            @if(!$item->verified)
-                            <form action="/admin/clients/requests/confirm/house/{{$item->id}}" method="post">
+                            @if($item->verified)
+                            <form action="/{{$item->id}}" method="post">
                             @csrf
-                                <button type="submit" class="flex items-center justify-center mx-1 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50"> Patvirtinti </button>
+                                <button type="submit" class="flex items-center justify-center mx-1 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50"> Išmokėti </button>
                             </form>
                             @endif
                             <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
@@ -151,6 +149,16 @@
                                     </button>
                                     </form>
                             </div>
+                            </div>
+
+
+                            <div class="md:w-96 py-2 mx-4 text-slate-50 ">
+                                @foreach ($accidentsHouses as $accident)
+                                    @if($accident->house_id == $item->id) 
+                                        <p>{{$accident->about}}</p>
+                                    @endif
+                                @endforeach
+                                
                             </div>
   </div>
     @endif

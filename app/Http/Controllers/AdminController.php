@@ -6,6 +6,7 @@ use App\Models\Accidents;
 use App\Models\Car;
 use App\Models\Clients;
 use App\Models\House;
+use App\Models\HouseAccidents;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -116,12 +117,15 @@ class AdminController extends Controller
     }
 
     public function show_accidents() {
-        $accidents = Accidents::get()->pluck('car_id')->toArray();
+        $accidentsCars = Accidents::get()->pluck('car_id')->toArray();
+        $cars = Car::whereIn('id', $accidentsCars)->get();
+        $accidentsCars = Accidents::where('about', '!=', '')->get();
+        
     
-        $cars = Car::where('id', $accidents);
-        dd($cars);
-        $houses = [];
+        $accidentsHouses = HouseAccidents::get()->pluck('house_id')->toArray();
+        $houses = House::whereIn('id', $accidentsHouses)->get();
+        $accidentsHouses = HouseAccidents::where('about', '!=', '')->get();
 
-        return view('pages.clients_accidents', compact('cars', 'houses'));
+        return view('pages.clients_accidents', compact('cars', 'houses', 'accidentsCars', 'accidentsHouses'));
     }
 }
