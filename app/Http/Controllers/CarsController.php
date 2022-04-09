@@ -12,7 +12,7 @@ use League\CommonMark\Extension\Attributes\Node\Attributes;
 class CarsController extends Controller
 {
     public function store(Request $request) {
-
+        
         $validated = $request-> validate([
             'brand' => 'required|max:255',
             'year' => 'required|max:255',
@@ -20,10 +20,14 @@ class CarsController extends Controller
             'regnr' => 'required|max:255',
             'about' => 'max:255',
             'client_id',
-            'verified'
+            'verified',
+            'fileUpload' => 'required|mimes:jpg,png,jpeg'
         ]);
+        
+        $newImageName = time() . '-' . $request->brand . '-' . $request->year . 
+        $request->fileUpload->extension();
 
-    
+        $request->fileUpload->move(public_path('images'), $newImageName);
 
         Car::create([
             'brand' => request('brand'),
@@ -32,7 +36,8 @@ class CarsController extends Controller
             'regnr' => request('regnr'),
             'about' => request('about'),
             'client_id' => Clients::select('id')->where('user_id', auth()->id())->first()->id,
-            'verified' => false
+            'verified' => false,
+            'image_path' => $newImageName
         ]);
 
         return redirect('/dashboard');

@@ -54,7 +54,7 @@ class AccidentsController extends Controller
 
     public function submitFormCar(Request $request, $id) {
         if(Car::find($id)->id == Clients::where('user_id', auth()->id())->first()->id ) {
-            return redirect('/');
+            
         }
         $validated = $request-> validate([
             'about' => 'max:255',
@@ -73,7 +73,7 @@ class AccidentsController extends Controller
 
     public function submitFormHouse(Request $request, $id) {
         if(House::find($id)->id == Clients::where('user_id', auth()->id())->first()->id ) {
-            return redirect('/');
+           
         }
         $validated = $request-> validate([
             'about' => 'max:255',

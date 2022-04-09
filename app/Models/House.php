@@ -14,6 +14,7 @@ class House extends Model
         'address',
         'client_id',
         'about',
-        'verified'
+        'verified',
+        'image_path'
     ];
 }

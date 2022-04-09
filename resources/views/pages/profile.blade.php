@@ -49,7 +49,11 @@
     @foreach ($wealthVerified as $item)
         
         <div class="my-6 md:my-2">
+                        @if($item->verified)
+                        <div class="rounded bg-slate-700 max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
+                        @else
                         <div class="rounded bg-slate-600 max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
+                        @endif
                             <div class="flex items-center justify-between flex-wrap">
                             <div class="w-0 flex-1 flex items-center">
                                 <span class="flex p-2 rounded-lg ">
@@ -92,6 +96,10 @@
                                     </button>
                                 </a>
                             </div>
+                            </div>
+
+                            <div class="w-full place-items-end justify-start flex justify-items-end p-1">
+                                <img class="w-48 rounded items-end" src="{{ asset('images/' . $item->image_path) }}" />
                             </div>
   </div>
 
@@ -160,6 +168,10 @@
                                 </button>
                                 </a>
                             </div>
+                            </div>
+
+                            <div class="w-full place-items-end justify-start flex justify-items-end p-1">
+                                <img class="w-96 rounded items-end" src="{{ asset('images/' . $item->image_path) }}" />
                             </div>
   </div>
     @endforeach

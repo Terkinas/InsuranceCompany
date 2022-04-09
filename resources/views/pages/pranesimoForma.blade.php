@@ -90,6 +90,9 @@
                                 </a>
                             </div>
                             </div>
+                            <div class="w-full place-items-end justify-start flex justify-items-end p-1">
+                                <img class="w-48 rounded items-end" src="{{ asset('images/' . $item->image_path) }}" />
+                            </div>
   </div>
     @endif
     @endforeach

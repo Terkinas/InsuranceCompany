@@ -85,13 +85,17 @@
                               
                             </div>
                             </div>
-                            <div class="md:w-96 py-2 mx-4 text-slate-50 ">
+                             <div class="w-full place-items-end justify-start flex justify-items-end p-1">
+                                <img class="w-48 rounded items-end" src="{{ asset('images/' . $item->image_path) }}" />
+                            
+                            <div class="md:w-96 py-2 item-start mx-4 text-slate-50 ">
                                 @foreach ($accidentsCars as $accident)
                                     @if($accident->car_id == $item->id) 
                                         <p>{{$accident->about}}</p>
                                     @endif
                                 @endforeach
                                 
+                            </div>
                             </div>
   </div>
     @endif
@@ -151,6 +155,9 @@
                             </div>
                             </div>
 
+                            <div class="w-full place-items-end justify-start flex justify-items-end p-1">
+                                <img class="w-96 rounded items-end" src="{{ asset('images/' . $item->image_path) }}" />
+                            </div>
 
                             <div class="md:w-96 py-2 mx-4 text-slate-50 ">
                                 @foreach ($accidentsHouses as $accident)

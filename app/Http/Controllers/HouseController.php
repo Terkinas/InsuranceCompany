@@ -14,15 +14,22 @@ class HouseController extends Controller
             'address' => 'required|max:255',
             'client_id',
             'about' => 'max:255',
-            'verified'
+            'verified',
+            'fileUpload' => 'required|mimes:jpg,png,jpeg'
         ]);
+
+        $newImageName = time() . '-' . $request->address . '-' . $request->squares . 
+        $request->fileUpload->extension();
+
+        $request->fileUpload->move(public_path('images'), $newImageName);
 
         House::create([
             'squares' => request('squares'),
             'address' => request('address'),
             'client_id' => Clients::select('id')->where('user_id', auth()->id())->first()->id,
             'about' => request('about'),
-            'verified' => false
+            'verified' => false,
+            'image_path' => $newImageName
         ]);
 
         return redirect('/dashboard');

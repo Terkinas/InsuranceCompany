@@ -16,6 +16,7 @@ class Car extends Model
         'regnr',
         'about',
         'client_id',
-        'verified'
+        'verified',
+        'image_path'
     ];
 }
